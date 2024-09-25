@@ -3,13 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minimalist Notes</title>
+    <title>Note App</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="app">
-        <div id="settings-icon">⚙️</div> </div>
-        <textarea id="note-area" placeholder="Start typing..."></textarea>
+        <div id="note-container">
+            <textarea id="note-area" placeholder="Enter your note here..."></textarea>
+            <div id="button-container">
+                <span id="settings-icon">⚙️</span>
+                <button id="save-button">Save Note</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="settings-panel">
+        <h3>Settings</h3>
+        <input type="text" id="save-path-input" placeholder="Save Path">
+        <button id="save-path-button">Set Save Path</button>
+        <button id="choose-directory-button">Choose Directory</button>
     </div>
 
     <script src="script.js"></script>

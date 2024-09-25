@@ -1,34 +1,155 @@
 /* style.css */
-body {
+body, html {
     margin: 0;
-    font-family: sans-serif;
-    background-color: #f0f0f0; /* Light background */
+    padding: 0;
+    height: 100%;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f5f5f5;
 }
 
 #app {
     display: flex;
     flex-direction: column;
-    height: 100vh; /* Take up full viewport height */
+    height: 100vh;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+#note-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 #note-area {
-    flex-grow: 1; /* Expand to fill available space */
+    flex-grow: 1;
+    width: 100%;
     padding: 20px;
     border: none;
     resize: none;
     font-size: 18px;
-    background-color: #fff; /* White background for the note area */
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+#button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#save-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#save-button:hover {
+    background-color: #45a049;
 }
 
 #settings-icon {
-    position: absolute;
-    top: 10px;
-    right: 10px;
     font-size: 24px;
     cursor: pointer;
+    background-color: #fff;
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 #settings-panel {
-    /* We will style this when we add the settings panel content */
-    display: none; /* Initially hidden */
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    min-width: 250px;
+    z-index: 1000;
+}
+
+#settings-panel h3 {
+    margin-top: 0;
+}
+
+#save-path-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#save-path-button, #choose-directory-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+#save-path-button:hover, #choose-directory-button:hover {
+    background-color: #45a049;
+}
+
+#notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: none;
+    z-index: 1000;
+    transition: opacity 0.5s ease-in-out;
+}
+
+@media (min-width: 768px) {
+    #app {
+        padding-top: 40px;
+    }
+
+    #note-container {
+        height: calc(100vh - 100px);
+    }
+
+    #note-area {
+        height: calc(100% - 60px);
+    }
+}
+
+@media (max-width: 767px) {
+    #app {
+        padding: 10px;
+    }
+
+    #note-area {
+        font-size: 16px;
+    }
+
+    #settings-panel {
+        width: 90%;
+        max-width: 300px;
+    }
 }
