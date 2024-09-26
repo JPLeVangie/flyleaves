@@ -4,13 +4,9 @@ const titleInput = document.getElementById('title-input');
 const settingsIcon = document.getElementById('settings-icon');
 const settingsPanel = document.getElementById('settings-panel');
 const savePathInput = document.getElementById('save-path-input');
-const savePathButton = document.getElementById('save-path-button');
 const chooseDirectoryButton = document.getElementById('choose-directory-button');
 const saveButton = document.getElementById('save-button');
 const notification = document.getElementById('notification');
-
-// Global variables
-let directoryHandle = null;
 
 // Functions
 function showNotification(message, duration = 3000) {
@@ -23,9 +19,9 @@ function showNotification(message, duration = 3000) {
 
 async function chooseDirectory() {
     try {
-        directoryHandle = await window.showDirectoryPicker();
-        savePathInput.value = directoryHandle.name;
-        showNotification(`Directory selected: ${directoryHandle.name}`);
+        const handle = await window.showDirectoryPicker();
+        savePathInput.value = handle.name;
+        showNotification(`Directory selected: ${handle.name}`);
     } catch (err) {
         console.error('Error selecting directory:', err);
         showNotification('Error selecting directory. Please try again.', 5000);
@@ -41,29 +37,19 @@ async function saveNote() {
         return;
     }
 
-    if (!directoryHandle) {
-        showNotification('Please choose a directory in the settings first.', 5000);
-        return;
-    }
-
     let fileName = noteTitle ? `${noteTitle}.md` : `note_${new Date().toISOString().replace(/:/g, '-')}.md`;
     fileName = fileName.replace(/[^a-z0-9]/gi, '_').toLowerCase();
 
     try {
-        // Check if file already exists
-        try {
-            await directoryHandle.getFileHandle(fileName);
-            const userChoice = confirm(`A file named "${fileName}" already exists. Do you want to overwrite it?`);
-            if (!userChoice) {
-                showNotification('Save cancelled. Please choose a different title.', 5000);
-                return;
-            }
-        } catch (err) {
-            // File doesn't exist, we can proceed
-        }
+        const handle = await window.showSaveFilePicker({
+            suggestedName: fileName,
+            types: [{
+                description: 'Markdown Files',
+                accept: {'text/markdown': ['.md']}
+            }]
+        });
 
-        const fileHandle = await directoryHandle.getFileHandle(fileName, { create: true });
-        const writable = await fileHandle.createWritable();
+        const writable = await handle.createWritable();
         await writable.write(noteContent);
         await writable.close();
 
@@ -90,11 +76,6 @@ function resizeNoteArea() {
 // Event Listeners
 settingsIcon.addEventListener('click', () => {
     settingsPanel.style.display = settingsPanel.style.display === 'none' ? 'block' : 'none';
-});
-
-savePathButton.addEventListener('click', () => {
-    showNotification(`Save path set to: ${savePathInput.value}`);
-    settingsPanel.style.display = 'none';
 });
 
 chooseDirectoryButton.addEventListener('click', chooseDirectory);
