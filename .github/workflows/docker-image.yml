@@ -1,10 +1,9 @@
 name: Docker Image CI
 
 on:
-  workflow_run:
-    workflows: ["Create Release"]
-    types:
-      - completed
+  push:
+    branches:
+      - main 
 
 jobs:
   build:
