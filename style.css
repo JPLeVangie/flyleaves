@@ -17,6 +17,18 @@ body, html {
     box-sizing: border-box;
 }
 
+#title-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 18px;
+    background-color: #fff;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
 #note-container {
     display: flex;
     flex-direction: column;
@@ -96,7 +108,7 @@ body, html {
     box-sizing: border-box;
 }
 
-#save-path-button, #choose-directory-button {
+#save-path-button {
     background-color: #4CAF50;
     color: white;
     border: none;
@@ -107,14 +119,26 @@ body, html {
     margin-bottom: 10px;
 }
 
+#choose-directory-button {
+    background-color: #f0f0f0;
+    color: rgb(0, 0, 0);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+    margin-bottom: 10px;
+} 
+
 #save-path-button:hover, #choose-directory-button:hover {
     background-color: #45a049;
 }
 
 #notification {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     background-color: #4CAF50;
     color: white;
     padding: 15px 20px;
